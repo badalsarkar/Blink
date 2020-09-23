@@ -47,7 +47,7 @@ public class App {
 			System.exit(0);
 		}
     	catch(IOException iox) {
-    		System.out.println("Error handling file");
+    		System.out.println("Encountered error while handling file");
     		System.exit(0);
     	}
     	catch(SecurityException sx) {
@@ -58,7 +58,7 @@ public class App {
     }
     
 	/**
-	 * Process the file to extract all HTTP/HTTPS links adn check if links are valid.
+	 * Process the file to extract all HTTP/HTTPS links and check if links are valid.
 	 * @param path File path
 	 * @param destination File to save the result
 	 */
