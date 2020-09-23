@@ -1,5 +1,7 @@
 package com.badalsarkar;
 
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
@@ -9,35 +11,40 @@ import java.util.concurrent.ExecutionException;
 
 
 /**
- * This class reads some URLS from urlBuffer which is shared resource.
- * Then it makes Http get request using the URL and writes the result
- * to status resource.
- * @author badal
+ * This class makes HTTP request with an URL and 
+ * records its response. 
  *
  */
 public class Checker{
-	private final int MAX_ASYNC_TASK=100;
-	private List<String> urls;
-	private List<UrlStatus> httpStatus;
-	private int checked=0;
+	// Http requests are made asynchronously.
+	// Currently, I am making 100 async request
+	// at a time. I still need to check how far
+	// I can go increasing this number, without
+	// affecting performance. 
+	private static final int MAX_ASYNC_TASK=100;
+	//private List<String> urls;
+	//private int checked=0;
 	
 	public Checker(List<String> urls) {
-		this.urls= urls;
-		httpStatus = new ArrayList<UrlStatus>();
+		//this.urls= urls;
 	}
 	
 	/**
-	 * Check all the Urls and print to screen and write to a file.
+	 * Check all the Urls and print to screen.
 	 */
-	public void check() {
+	public static List<UrlStatus> check(List<String> urls) {
 		int size = urls.size();
-		int remaining = size-checked;
-		int totalLink=0;
+		int remaining = size;
+		int checked=0;
+		List<UrlStatus> urlStatus= new ArrayList<UrlStatus>();
+		// Start sending http request
 		while(remaining>0) {
+			// Checking if I need to run 100 async task or less
 			int asyncTaskToRun = remaining>MAX_ASYNC_TASK?MAX_ASYNC_TASK:remaining;
-			List<CompletableFuture<UrlStatus>> httpRequests = new ArrayList<CompletableFuture<UrlStatus>>(asyncTaskToRun);
-			for(int i =0; i<asyncTaskToRun;i++) {
-				// initiate async task
+			List<CompletableFuture<UrlStatus>> httpRequests = 
+					new ArrayList<CompletableFuture<UrlStatus>>(asyncTaskToRun);
+			// initiating async task
+			for(int i = 0; i< asyncTaskToRun; i++) {
 				String url= urls.get(checked++);
 				httpRequests.add(CompletableFuture.supplyAsync(()->makeRequest(url)));
 			}
@@ -45,28 +52,33 @@ public class Checker{
 			// await for async tasks to complete
 			for(CompletableFuture<UrlStatus> task: httpRequests) {
 				try {
-					//httpStatus.add(task.get());
-					task.get().printToScreen();
-					totalLink++;
-				} catch (InterruptedException | ExecutionException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
+					UrlStatus status=task.get();
+					urlStatus.add(status);
+					status.printToScreen();
+				} 
+				catch (InterruptedException | ExecutionException e) {
+					// empty
+					// continue even if exception
+				}
+				catch(Exception ex) {
+					// Exception might come from printToScreen
+					// ignore it and keep processing 
 				}
 			}
 			remaining=size-checked;
 		}
-		
-		// invoke output method
-		System.out.println("Total Link Checked: "+ totalLink);
-		
+		return urlStatus;
 	}
 	
 	/**
 	 * Makes Http request to a URL and returns the status code.
+	 * 
+	 * @TODO add feature to handle redirect
+	 * @TODO add feature to handle different network error
 	 * @param url
-	 * @return
+	 * @return {@link UrlStatus}
 	 */
-	private UrlStatus makeRequest(String url){
+	private static UrlStatus makeRequest(String url){
         UrlStatus status = null; 
         try{
             HttpURLConnection connection = (HttpURLConnection) new URL(url).openConnection();
@@ -76,6 +88,8 @@ public class Checker{
             status= new UrlStatus(url, connection.getResponseCode());
         }
         catch(Exception ex){
+        	// Currently, if there is any network error e.g Timeout,
+        	// I am returning 1, and this represents "BAD" status.
         	return new UrlStatus(url, 1);
         }
         return status;

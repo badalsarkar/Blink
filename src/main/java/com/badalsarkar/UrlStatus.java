@@ -1,12 +1,11 @@
 package com.badalsarkar;
 
-import com.diogonunes.jcolor.AnsiFormat;
-import com.diogonunes.jcolor.Attribute;
-
+/**
+ * This class encapsulate a url's status received 
+ * from HTTP request.
+ *
+ */
 public class UrlStatus {
-
-	//AnsiFormat greenColor = new AnsiFormat(Attribute.GREEN_TEXT());
-    //AnsiFormat redColor = new AnsiFormat(Attribute.RED_TEXT());
 	private String url;
 	private int status;
 	
@@ -27,10 +26,12 @@ public class UrlStatus {
 		this.status = statusCode;
 	}
 	public void printToScreen() {
-		String printLine= "Status\t[%d]\t[%s]%4s\t%s";
-		printLine= String.format(printLine, this.status, HttpStatusToText.get(this.status),"", this.url);
-		System.out.println(PrintColor.get(this.status).format(printLine));
+		System.out.println(PrintColor.get(this.status).format(formatLineForPrinting()));
 	}
-
-
+	
+	public String formatLineForPrinting() {
+		String line= "\tStatus\t[%d]\t[%s]%4s\t%s";
+		line= String.format(line, this.status, HttpStatusToText.get(this.status),"", this.url);
+		return line;
+	}
 }
