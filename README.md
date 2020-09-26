@@ -71,7 +71,7 @@ Prerequisite: Eclipse should have Maven installed.
 - If you get Edit Configuration window, put "clean compile" in the Goals field
 and click Run. This will compile the code.
 - Now to run the code, open terminal in Eclipse
-- Run command `mvn exec:java -Dexec.args="available options"
+- Run command `mvn exec:java -Dexec.args="available options"`
 - The app will run now
 
 **Setup in Other IDE**
