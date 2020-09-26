@@ -1,6 +1,6 @@
-# URLChecker
+# Blink
 
-URLChecker is a command line application to detect invalid urls.
+Blink is a command line application to detect invalid URLs.
 
 ## Available Features
 
@@ -24,20 +24,20 @@ The executable file is inside the release folder.
 **To process a file-**
 
 ```bash
-java -jar urlchecker.jar -s source/file/path -d
+java -jar blink.jar -s source/file/path -d
 destination/file/if/you/want/to/save/output
 ```
 
 **To Show Help**
 
 ```bash
-java - jar urlchecker.jar -h
+java - jar blink.jar -h
 ```
 
 **To Show Version**
 
 ```bash
-java -jar urlchecker.jar -v
+java -jar blink.jar -v
 ```
 
 ## Under Development
@@ -66,7 +66,7 @@ Prerequisite: Eclipse should have Maven installed.
 - Clone the repository to your local machine
 - Import the project in your Eclipse IDE
 - Play around with the code
-- To compile the project select the Run menu -> Rus as -> Maven Clean
+- To compile the project select the Run menu -> Run as -> Maven Clean
 - Select Run menu -> Run as -> Maven Build
 - If you get Edit Configuration window, put "clean compile" in the Goals field
 and click Run. This will compile the code.
