@@ -38,6 +38,10 @@ public class App {
 				CliParser.printHelp();
 				System.exit(0);
 			}
+			if (cli.hasOption("recursiveSearch")) {
+				CliParser.recursiveSearchSubDirectories();
+				System.exit(0);
+			}
 
 		} catch (ParseException e) {
 			// TODO Auto-generated catch block

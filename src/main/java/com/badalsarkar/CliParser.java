@@ -40,10 +40,12 @@ public class CliParser {
 				.build();
 		Option source = Option.builder("s").longOpt("source").hasArg().desc("The source file path").build();
 		Option help = Option.builder("h").longOpt("help").desc("Help").build();
+		Option recursiveSearch = Option.builder("r").longOpt("recursive").desc("Starting from the file path entered by the user, recursively search all sub-directories for txt and html files").build();
 		OPTIONS.addOption(version);
 		OPTIONS.addOption(destination);
 		OPTIONS.addOption(source);
 		OPTIONS.addOption(help);
+		OPTIONS.addOption(recursiveSearch);
 	}
 
 	/**
@@ -64,4 +66,20 @@ public class CliParser {
 		String version = "\nV.0.1";
 		System.out.println(header + version);
 	}
+	
+	
+	public static void recursiveSearchSubDirectories() {
+		
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 }
