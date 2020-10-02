@@ -52,7 +52,7 @@ public class Checker {
 				try {
 					UrlStatus status = task.get();
 					urlStatus.add(status);
-					status.printToScreen();
+					//status.printToScreen();
 				} catch (InterruptedException | ExecutionException e) {
 					// empty
 					// continue even if exception

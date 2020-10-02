@@ -29,9 +29,11 @@ public class UrlStatus {
 		this.status = statusCode;
 	}
 
-	public void printToScreen() {
-		System.out.println(PrintColor.get(this.status).format(formatLineForPrinting()));
-	}
+	/*
+	 * public void printToScreen() {
+	 * System.out.println(PrintColor.get(this.status).format(formatLineForPrinting()
+	 * )); }
+	 */
 
 	public String formatLineForPrinting() {
 		String line = "Status\t[%d]\t[%s]%4s\t%s";

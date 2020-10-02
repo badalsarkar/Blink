@@ -18,6 +18,7 @@ public class App {
 	private static final String pattern = "(http|https):\\/\\/[-a-zA-Z0-9+&@#/%?=~_|!:,.;]*[-a-zA-Z0-9+&@#/%=~_|]";
 
 	public static void main(String[] args) {
+		
 		try {
 			// this is for parsing command line arguments.
 			CommandLine cli = CliParser.getCliArgs(args);
