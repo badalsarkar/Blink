@@ -68,8 +68,29 @@ public class CliParser {
 	}
 	
 	
-	public static void recursiveSearchSubDirectories() {
+	//Added by Bing Pan, October 2nd, 2020.
+	//Based on the directory path the user entered via CLI, 
+	//this function recursively searches all the sub-directories 
+	//and looks for files with certain types of file extension such as txt or html
+	//and returns an ArrayList of file paths in String that meet the file extension requirements.
+	public static List<String> recursiveSearchSubDirectories(String source) {
+		ArrayList<String> allFilePathFromSubDir = new ArrayList<>();
 		
+		File f = new File(source.toLowerCase());
+
+		if (f.exists()) {			
+			if (f.isDirectory()) {
+				Collection<File> files = FileUtils.listFiles(f, new String[] {"txt", "html"}, true);
+				for(File file : files) {
+					allFilePathFromSubDir.add(file.getPath().toString());
+				}
+			}
+		}
+		else {
+			System.out.println( "\"" + source + "\"" + ": invalid input for a directory/path");
+		}
+		
+		return allFilePathFromSubDir;
 	}
 	
 	
