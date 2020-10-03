@@ -16,7 +16,7 @@ Blink is a command line application to detect invalid URLs.
 | -s,--source<file path>      | Process the file            |
 | -d,--destination<file path> | Save the result to the file |
 | -h,--hep                    |  Shows help                 |
-| -r, --recursive             | Recursively search all sub folder |
+| -r, --recursive             | Recursively search all sub folders |
 
 ## How To Use
 
