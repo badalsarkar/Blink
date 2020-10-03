@@ -34,13 +34,23 @@ public class App {
 				// check if destination is provided
 				processFile(cli.getOptionValue("source"), cli.getOptionValue("destination"));
 				printSummary();
+				
+				//if the directory path input via the "source" argument exits, 
+				//then check if the user enters "-r" option for recursively searching for all the sub-directories 
+				if (cli.hasOption("recursive")) {
+					String srcFilePath = cli.getOptionValue("source");
+					if(srcFilePath != null) {
+						allFilePathFromSubDir = CliParser.recursiveSearchSubDirectories(srcFilePath);
+						for(String filePath : allFilePathFromSubDir) {
+							processFile(filePath, cli.getOptionValue("destination"));
+							printSummary();
+						}
+					}
+				}
+				
 				System.exit(0);
 			} else {
 				CliParser.printHelp();
-				System.exit(0);
-			}
-			if (cli.hasOption("recursiveSearch")) {
-				CliParser.recursiveSearchSubDirectories();
 				System.exit(0);
 			}
 
