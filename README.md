@@ -41,6 +41,12 @@ java - jar blink.jar -h
 java -jar blink.jar -v
 ```
 
+**To Recursively Search sub-folders**
+
+```bash
+java -jar blink.jar -s directoryPath -d destinationPath -r
+```
+
 ## Under Development
 
 - Process multiple file
