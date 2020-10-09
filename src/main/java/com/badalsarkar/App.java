@@ -2,6 +2,8 @@ package com.badalsarkar;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Properties;
+
 import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.ParseException;
 
@@ -12,6 +14,8 @@ import org.apache.commons.cli.ParseException;
 public class App {
 	private static int totalProcessingTime;
 	private static List<String> allUrls;
+	private static UrlPrinter urlPrinter;
+	private static CommandLine cli;
 	/**
 	 * This pattern matches string with beginning word HTTP/HTTPS.
 	 */
@@ -20,29 +24,28 @@ public class App {
 	public static void main(String[] args) {
 		try {
 			// this is for parsing command line arguments.
-			CommandLine cli = CliParser.getCliArgs(args);
+			cli = CliParser.getCliArgs(args);
+			// CLI arg --version
 			if (cli.hasOption("version")) {
 				CliParser.printVersion();
 				System.exit(0);
 			}
+			// CLI arg --help
 			if (cli.hasOption("help")) {
 				CliParser.printHelp();
 				System.exit(0);
 			}
+
+			// CLI arg --source
 			if (cli.hasOption("source")) {
-				// check if destination is provided
-				processFile(cli.getOptionValue("source"), cli.getOptionValue("destination"));
+				configureUrlPrinter();
+				processFile(cli.getOptionValue("source"), cli.getOptionValue("destination"), urlPrinter);
 				printSummary();
 				System.exit(0);
 			} else {
 				CliParser.printHelp();
 				System.exit(0);
 			}
-
-		} catch (ParseException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			System.exit(0);
 		} catch (IOException iox) {
 			System.out.println("Encountered error while handling file");
 			System.exit(0);
@@ -54,18 +57,30 @@ public class App {
 	}
 
 	/**
+	 * Configures a printer for printing URL
+	 */
+	private static void configureUrlPrinter() {
+		urlPrinter = new UrlPrinter();
+		if(cli.hasOption("good")) {
+			urlPrinter.setUrlToPrint(PrintFilter.GOOD);
+		}
+		if(cli.hasOption("bad")) {
+			urlPrinter.setUrlToPrint(PrintFilter.BAD);
+		}
+	}
+	/**
 	 * Process the file to extract all HTTP/HTTPS links and check if links are
 	 * valid.
 	 * 
 	 * @param path        File path
 	 * @param destination File to save the result
 	 */
-	private static void processFile(String source, String destination) throws IOException, SecurityException {
+	private static void processFile(String source, String destination, UrlPrinter urlPrinter) throws IOException, SecurityException {
 		System.out.println("Processing...");
 		// Just to track how long it takes to execute
 		long startTime = System.nanoTime();
 		extractUrl(source);
-		checkUrl(destination);
+		checkUrl(destination, urlPrinter);
 		long endTime = System.nanoTime();
 		totalProcessingTime = (int) ((endTime - startTime) / 1000000000L);
 	}
@@ -88,9 +103,9 @@ public class App {
 	 * @throws IOException
 	 * @throws SecurityException
 	 */
-	private static void checkUrl(String destination) throws IOException, SecurityException {
+	private static void checkUrl(String destination, UrlPrinter urlPrinter) throws IOException, SecurityException {
 		// Checker checker = new Checker(allUrls);
-		List<UrlStatus> urlStatus = Checker.check(allUrls);
+		List<UrlStatus> urlStatus = Checker.check(allUrls, urlPrinter);
 		if (destination != null) {
 			Writer writer = new Writer();
 			writer.setPrintWriter(destination);

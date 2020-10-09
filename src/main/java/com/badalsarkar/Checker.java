@@ -30,7 +30,7 @@ public class Checker {
 	/**
 	 * Check all the Urls and print to screen.
 	 */
-	public static List<UrlStatus> check(List<String> urls) {
+	public static List<UrlStatus> check(List<String> urls, UrlPrinter urlPrinter) {
 		int size = urls.size();
 		int remaining = size;
 		int checked = 0;
@@ -52,7 +52,7 @@ public class Checker {
 				try {
 					UrlStatus status = task.get();
 					urlStatus.add(status);
-					status.printToScreen();
+					urlPrinter.print(status);
 				} catch (InterruptedException | ExecutionException e) {
 					// empty
 					// continue even if exception
