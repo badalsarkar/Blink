@@ -29,10 +29,23 @@ public class UrlStatus {
 		this.status = statusCode;
 	}
 
-	public void printToScreen() {
+	public void printToScreenWithColor() {
 		System.out.println(PrintColor.get(this.status).format(formatLineForPrinting()));
 	}
-
+	
+	public void printToScreenWithoutColor() {
+		System.out.println(formatLineForPrinting());
+	}
+	
+	public void print(boolean colorPrint) {
+		if(colorPrint) {
+			printToScreenWithColor();
+		}
+		else {
+			printToScreenWithoutColor();
+		}
+	}
+	
 	public String formatLineForPrinting() {
 		String line = "Status\t[%d]\t[%s]%4s\t%s";
 		line = String.format(line, this.status, HttpStatusToText.get(this.status), "", this.url);

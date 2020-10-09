@@ -14,7 +14,7 @@ import java.util.concurrent.ExecutionException;
  *
  */
 public class Checker {
-	// Http requests are made asynchronously.
+	// HTTP requests are made asynchronously.
 	// Currently, I am making 100 async request
 	// at a time. I still need to check how far
 	// I can go increasing this number, without
@@ -30,7 +30,7 @@ public class Checker {
 	/**
 	 * Check all the Urls and print to screen.
 	 */
-	public static List<UrlStatus> check(List<String> urls) {
+	public static List<UrlStatus> check(List<String> urls, boolean printInColor) {
 		int size = urls.size();
 		int remaining = size;
 		int checked = 0;
@@ -52,7 +52,7 @@ public class Checker {
 				try {
 					UrlStatus status = task.get();
 					urlStatus.add(status);
-					status.printToScreen();
+					status.print(printInColor);
 				} catch (InterruptedException | ExecutionException e) {
 					// empty
 					// continue even if exception

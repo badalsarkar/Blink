@@ -2,11 +2,13 @@ package com.badalsarkar;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Map;
+
 import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.ParseException;
 
 /**
- * Main calss.
+ * Main class.
  *
  */
 public class App {
@@ -18,6 +20,7 @@ public class App {
 	private static final String pattern = "(http|https):\\/\\/[-a-zA-Z0-9+&@#/%?=~_|!:,.;]*[-a-zA-Z0-9+&@#/%=~_|]";
 
 	public static void main(String[] args) {
+		Environment.extractAllVariables();
 		try {
 			// this is for parsing command line arguments.
 			CommandLine cli = CliParser.getCliArgs(args);
@@ -30,8 +33,7 @@ public class App {
 				System.exit(0);
 			}
 			if (cli.hasOption("source")) {
-				// check if destination is provided
-				processFile(cli.getOptionValue("source"), cli.getOptionValue("destination"));
+				processFile(cli.getOptionValue("source"), cli.getOptionValue("destination"), Environment.getCliColor());
 				printSummary();
 				System.exit(0);
 			} else {
@@ -40,7 +42,6 @@ public class App {
 			}
 
 		} catch (ParseException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 			System.exit(0);
 		} catch (IOException iox) {
@@ -53,19 +54,21 @@ public class App {
 
 	}
 
+
 	/**
 	 * Process the file to extract all HTTP/HTTPS links and check if links are
 	 * valid.
 	 * 
 	 * @param path        File path
 	 * @param destination File to save the result
+	 * @param printInColor When true, the output is printed in color in console
 	 */
-	private static void processFile(String source, String destination) throws IOException, SecurityException {
+	private static void processFile(String source, String destination, boolean printInColor) throws IOException, SecurityException {
 		System.out.println("Processing...");
 		// Just to track how long it takes to execute
 		long startTime = System.nanoTime();
 		extractUrl(source);
-		checkUrl(destination);
+		checkUrl(destination, printInColor);
 		long endTime = System.nanoTime();
 		totalProcessingTime = (int) ((endTime - startTime) / 1000000000L);
 	}
@@ -88,9 +91,8 @@ public class App {
 	 * @throws IOException
 	 * @throws SecurityException
 	 */
-	private static void checkUrl(String destination) throws IOException, SecurityException {
-		// Checker checker = new Checker(allUrls);
-		List<UrlStatus> urlStatus = Checker.check(allUrls);
+	private static void checkUrl(String destination, boolean printInColor) throws IOException, SecurityException {
+		List<UrlStatus> urlStatus = Checker.check(allUrls, printInColor);
 		if (destination != null) {
 			Writer writer = new Writer();
 			writer.setPrintWriter(destination);
