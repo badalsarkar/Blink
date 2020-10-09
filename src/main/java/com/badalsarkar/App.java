@@ -3,7 +3,6 @@ package com.badalsarkar;
 import java.io.IOException;
 import java.util.List;
 import java.util.Map;
-
 import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.ParseException;
 
@@ -14,6 +13,8 @@ import org.apache.commons.cli.ParseException;
 public class App {
 	private static int totalProcessingTime;
 	private static List<String> allUrls;
+	private static UrlPrinter urlPrinter;
+	private static CommandLine cli;
 	/**
 	 * This pattern matches string with beginning word HTTP/HTTPS.
 	 */
@@ -23,27 +24,28 @@ public class App {
 		Environment.extractAllVariables();
 		try {
 			// this is for parsing command line arguments.
-			CommandLine cli = CliParser.getCliArgs(args);
+			cli = CliParser.getCliArgs(args);
+			// CLI arg --version
 			if (cli.hasOption("version")) {
 				CliParser.printVersion();
 				System.exit(0);
 			}
+			// CLI arg --help
 			if (cli.hasOption("help")) {
 				CliParser.printHelp();
 				System.exit(0);
 			}
+
+			// CLI arg --source
 			if (cli.hasOption("source")) {
-				processFile(cli.getOptionValue("source"), cli.getOptionValue("destination"), Environment.getCliColor());
+				configureUrlPrinter();
+				processFile(cli.getOptionValue("source"), cli.getOptionValue("destination"), urlPrinter);
 				printSummary();
 				System.exit(0);
 			} else {
 				CliParser.printHelp();
 				System.exit(0);
 			}
-
-		} catch (ParseException e) {
-			e.printStackTrace();
-			System.exit(0);
 		} catch (IOException iox) {
 			System.out.println("Encountered error while handling file");
 			System.exit(0);
@@ -56,6 +58,24 @@ public class App {
 
 
 	/**
+	 * Configures a printer for printing URL.
+	 * This printer has several settings to modify 
+	 * the way URL status is printed in the screen.
+	 */
+	private static void configureUrlPrinter() {
+		urlPrinter = new UrlPrinter();
+		// Only prints good URL
+		if(cli.hasOption("good")) {
+			urlPrinter.setUrlToPrint(PrintFilter.GOOD);
+		}
+		// Only prints bad URL
+		if(cli.hasOption("bad")) {
+			urlPrinter.setUrlToPrint(PrintFilter.BAD);
+		}
+		// Color print or not
+		urlPrinter.setPrintInColor(Environment.getCliColor());
+	}
+	/**
 	 * Process the file to extract all HTTP/HTTPS links and check if links are
 	 * valid.
 	 * 
@@ -63,12 +83,12 @@ public class App {
 	 * @param destination File to save the result
 	 * @param printInColor When true, the output is printed in color in console
 	 */
-	private static void processFile(String source, String destination, boolean printInColor) throws IOException, SecurityException {
+	private static void processFile(String source, String destination, UrlPrinter urlPrinter) throws IOException, SecurityException {
 		System.out.println("Processing...");
 		// Just to track how long it takes to execute
 		long startTime = System.nanoTime();
 		extractUrl(source);
-		checkUrl(destination, printInColor);
+		checkUrl(destination, urlPrinter);
 		long endTime = System.nanoTime();
 		totalProcessingTime = (int) ((endTime - startTime) / 1000000000L);
 	}
@@ -91,8 +111,8 @@ public class App {
 	 * @throws IOException
 	 * @throws SecurityException
 	 */
-	private static void checkUrl(String destination, boolean printInColor) throws IOException, SecurityException {
-		List<UrlStatus> urlStatus = Checker.check(allUrls, printInColor);
+	private static void checkUrl(String destination, UrlPrinter urlPrinter) throws IOException, SecurityException {
+		List<UrlStatus> urlStatus = Checker.check(allUrls, urlPrinter);
 		if (destination != null) {
 			Writer writer = new Writer();
 			writer.setPrintWriter(destination);

@@ -18,7 +18,7 @@ public class PrintColor {
 	private static TreeMap<Integer, AnsiFormat> httpTextForCode = new TreeMap<Integer, AnsiFormat>();
 
 	static {
-		httpTextForCode.put(1, greenColor);
+		httpTextForCode.put(1, redColor);
 		httpTextForCode.put(100, yellowColor);
 		httpTextForCode.put(200, greenColor);
 		httpTextForCode.put(300, yellowColor);

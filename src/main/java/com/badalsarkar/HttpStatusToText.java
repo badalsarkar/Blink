@@ -11,7 +11,7 @@ import java.util.TreeMap;
 public class HttpStatusToText {
 	private static TreeMap<Integer, String> httpTextForCode = new TreeMap<Integer, String>();
 	static {
-		httpTextForCode.put(1, "BAD");
+		httpTextForCode.put(1, "ERROR");
 		httpTextForCode.put(100, "GOOD");
 		httpTextForCode.put(200, "GOOD");
 		httpTextForCode.put(300, "REDIRECT");

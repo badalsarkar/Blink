@@ -5,7 +5,9 @@ import org.apache.commons.cli.CommandLineParser;
 import org.apache.commons.cli.DefaultParser;
 import org.apache.commons.cli.HelpFormatter;
 import org.apache.commons.cli.Option;
+import org.apache.commons.cli.OptionGroup;
 import org.apache.commons.cli.Options;
+import org.apache.commons.cli.ParseException;
 
 /**
  * This class provides support to parse CLI arguments. I have used Apache
@@ -20,14 +22,22 @@ public class CliParser {
 	 * Process CLI arguments and returns it.
 	 * 
 	 * @param args
-	 * @return CLI argurments
+	 * @return CLI arguments
 	 * @throws org.apache.commons.cli.ParseException
 	 */
-	public static CommandLine getCliArgs(String[] args) throws org.apache.commons.cli.ParseException {
+	public static CommandLine getCliArgs(String[] args) {
 		CommandLineParser parser = new DefaultParser();
-		addOptions();
 		CommandLine cli = null;
-		cli = parser.parse(OPTIONS, args);
+		try {
+			addOptions();
+			addOptionGroups();
+			cli = parser.parse(OPTIONS, args);
+		} catch (ParseException e) {
+			System.out.println();
+			System.out.println("[ERROR]" + e.getMessage());
+			printHelp();
+			System.exit(1);
+		}
 		return cli;
 	}
 
@@ -44,6 +54,19 @@ public class CliParser {
 		OPTIONS.addOption(destination);
 		OPTIONS.addOption(source);
 		OPTIONS.addOption(help);
+	}
+
+	/**
+	 * Configure mutually exclusive options
+	 */
+	private static void addOptionGroups() {
+		OptionGroup optionGroup = new OptionGroup();
+		Option all = Option.builder("a").longOpt("all").desc("Prints both good and bad URL").build();
+		Option good = Option.builder("g").longOpt("good").desc("Prints only good URL").build();
+		Option bad = Option.builder("b").longOpt("bad").desc("Prints only bad URL").build();
+		optionGroup.addOption(all).addOption(good).addOption(bad);
+		// optionGroup.setSelected(all);
+		OPTIONS.addOptionGroup(optionGroup);
 	}
 
 	/**
