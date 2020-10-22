@@ -1,5 +1,7 @@
 package com.badalsarkar;
 
+import java.util.Map;
+
 /**
  * This is an utility class which encapsulates process of 
  * environmental variables. All the environmental variables 
@@ -7,13 +9,21 @@ package com.badalsarkar;
  * environmental variable consults with this class.
  *
  */
+
 public final class Environment {
+	private static Map<String, String> env;
 	// All supported variables
-	private static boolean cliColor;	// Used to print URL status in color
+	private static boolean cliColor=false;	// Used to print URL status in color
 	
-	// extracts all variables
 	public static void extractAllVariables() {
-		cliColor = Integer.parseInt(System.getenv("CLICOLOR"))==1?true:false;
+		env = System.getenv();
+		setCliColor();
+	}
+
+	private static void setCliColor() {
+		if(env.get("CLICOLOR")!=null) {
+			cliColor=true;
+		}
 	}
 	
 	public static boolean getCliColor() {
