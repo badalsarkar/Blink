@@ -13,7 +13,7 @@ import java.util.Map;
 public final class Environment {
 	private static Map<String, String> env;
 	// All supported variables
-	private static boolean cliColor=false;	// Used to print URL status in color
+	private static boolean cliColor;	// Used to print URL status in color
 	
 	public static void extractAllVariables() {
 		env = System.getenv();
@@ -22,7 +22,12 @@ public final class Environment {
 
 	private static void setCliColor() {
 		if(env.get("CLICOLOR")!=null) {
-			cliColor=true;
+			try {
+				cliColor=Integer.parseInt(env.get("CLICOLOR"))==1?true:false;
+			}
+			catch(NumberFormatException e) {
+				cliColor=false;
+			}
 		}
 	}
 	
