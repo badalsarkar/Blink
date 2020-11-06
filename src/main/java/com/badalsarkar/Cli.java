@@ -18,6 +18,7 @@ public final class Cli {
 	public static final CliOption all;
 	public static final CliOption good;
 	public static final CliOption bad;
+	public static final CliOption in;
 
 	static {
 		help = new CliOption("h", "help", "Show app usage help.");
@@ -28,6 +29,7 @@ public final class Cli {
 		all = new CliOption("a", "all", "Print all URLS.");
 		good = new CliOption("g", "good", "Print only good URL.");
 		bad = new CliOption("b", "bad", "Print only bad URLs.");
+		in = new CliOption("i", "in", "Accept text input from standard input");
 	}
 
 	/**
@@ -46,6 +48,7 @@ public final class Cli {
 
 		cliParser.registerCliOption(help);
 		cliParser.registerCliOption(version);
+		cliParser.registerCliOption(in);
 		cliParser.defineCliOptionWithArgument(source);
 		cliParser.defineCliOptionWithArgument(destination);
 		/*
