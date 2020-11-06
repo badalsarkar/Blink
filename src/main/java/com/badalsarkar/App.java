@@ -1,7 +1,10 @@
 package com.badalsarkar;
 
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.List;
+import java.util.regex.Pattern;
 
 /**
  * Main class.
@@ -33,6 +36,21 @@ public class App {
 				Cli.printVersion(appVersion);
 			}
 			
+			if(Cli.isSet(Cli.in)) {
+				configureUrlPrinter();
+				try(BufferedReader reader = new BufferedReader(new InputStreamReader(System.in))){
+					while(true) {
+						String text = null;
+						if((text = reader.readLine())!= null) {
+							Checker.check(Extractor.extractUrlFromText(text, Pattern.compile(pattern)), urlPrinter);
+						}
+						else {
+							break;
+						}
+					}
+				}
+				System.exit(0);
+			}
 			if(Cli.isSet(Cli.source)) {
 				configureUrlPrinter();
 				processFile(Cli.getCliOptionArgValue(Cli.source), Cli.getCliOptionArgValue(Cli.destination), urlPrinter);
