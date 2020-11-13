@@ -44,7 +44,7 @@ java -jar /path/to/Blink.jar -s /path/to/the/file
 curl -s https://github.com/badalsarkar/Blink | java -jar /path/to/Blink.jar -i
 ```
 
-![Blink process text input](./resources/gifs/BlinkWithCurl.gif "Blink processes
+![Blink process text input](./resources/gifs/BlinkWIthCurl.gif "Blink processes
     text input")
 
 **To Show Help**
