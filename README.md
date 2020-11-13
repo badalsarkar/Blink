@@ -26,7 +26,6 @@ inside `target` directory.
 java -jar /path/to/Blink.jar/ -s /path/to/the/file
 ```
 
-![Blink processes a file](./resources/gifs/blinkwithfile.gif "Blink processes a file")
 
 **To activate color output-**
 
