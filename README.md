@@ -5,39 +5,58 @@ Blink is a command line application to detect invalid URLs.
 ## Available Features
 
 - Check invalid URL with HTTP/HTTPS scheme in a html/txt file
-- Save the result to a file
 - Color output of validation result
+- Use environmental variable to control color print. Set `CLICOLOR=1` for color
+print to console.
+
+## How to install
+
+Run `./mvnw clean compile assembly:single`. This will create `Blink.jar` file
+inside `target` directory.
 
 ## Available Options
 
-| Options                     | Action                      |
-|:----------------------------|:----------------------------|
-| -v,--version                | Prints version number       |
-| -s,--source<file path>      | Process the file            |
-| -d,--destination<file path> | Save the result to the file |
-| -h,--hep                    |  Shows help                 |
+![Blink Options](./resources/images/blinkOption.png "Blink Options")
 
 ## How To Use
-
-The executable file is inside the release folder.
 
 **To process a file-**
 
 ```bash
-java -jar blink.jar -s source/file/path -d
-destination/file/if/you/want/to/save/output
+java -jar /path/to/Blink.jar/ -s /path/to/the/file
 ```
+
+![Blink processes a file](./resources/gifs/blinkwithfile.gif "Blink processes a
+    file")
+
+**To activate color output-**
+
+```bash
+export CLICOLOR=1
+java -jar /path/to/Blink.jar -s /path/to/the/file
+```
+
+![Blink color output](./resources/gifs/blinkWithColor.gif "Blink color output")
+
+**Pipe text from another process**
+
+```bash
+curl -s https://github.com/badalsarkar/Blink | java -jar /path/to/Blink.jar -i
+```
+
+![Blink process text input](./resources/gifs/BlinkWithCurl.gif "Blink processes
+    text input")
 
 **To Show Help**
 
 ```bash
-java - jar blink.jar -h
+java - jar /path/to/Blink.jar -h
 ```
 
 **To Show Version**
 
 ```bash
-java -jar blink.jar -v
+java -jar /path/to/Blink.jar -v
 ```
 
 ## Under Development
