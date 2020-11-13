@@ -2,6 +2,7 @@ package com.badalsarkar;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -23,7 +24,7 @@ public class FileParser {
   /** Extracts all URLs from file. */
   public void extractAllUrls() throws IOException {
     File file = new File(source);
-    Scanner in = new Scanner(file);
+    Scanner in = new Scanner(file, Charset.forName("UTF-8"));
     while (in.hasNextLine()) {
       extractUrlFromLine(in.nextLine());
     }
@@ -39,7 +40,6 @@ public class FileParser {
   private void extractUrlFromLine(String line) {
     int startPos = 0;
     int endPos = 0;
-    List<String> url = new ArrayList<String>();
     Matcher matcher = this.pattern.matcher(line);
     while (matcher.find()) {
       startPos = matcher.start();

@@ -12,7 +12,7 @@ public interface CliParser {
 
   void defineCliGroupOption(CliOption... options);
 
-  void parse(String[] args);
+  void parse(String[] args) throws Exception;
 
   boolean isCliOptionSet(CliOption option);
 

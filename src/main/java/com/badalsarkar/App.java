@@ -3,8 +3,10 @@ package com.badalsarkar;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.nio.charset.Charset;
 import java.util.List;
 import java.util.regex.Pattern;
+import org.apache.commons.cli.ParseException;
 
 /** Main class. */
 public class App {
@@ -17,9 +19,9 @@ public class App {
 
   public static void main(String[] args) {
     Environment.extractAllVariables();
-    Cli.init(args);
     /** if Cli.getVersion */
     try {
+      Cli.init(args);
       if (Cli.isSet(Cli.help)) {
         Cli.printHelp();
         System.exit(0);
@@ -31,7 +33,8 @@ public class App {
 
       if (Cli.isSet(Cli.in)) {
         configureUrlPrinter();
-        try (BufferedReader reader = new BufferedReader(new InputStreamReader(System.in))) {
+        try (BufferedReader reader =
+            new BufferedReader(new InputStreamReader(System.in, Charset.forName("UTF-8")))) {
           while (true) {
             String text = null;
             if ((text = reader.readLine()) != null) {
@@ -46,10 +49,7 @@ public class App {
       }
       if (Cli.isSet(Cli.source)) {
         configureUrlPrinter();
-        processFile(
-            Cli.getCliOptionArgValue(Cli.source),
-            Cli.getCliOptionArgValue(Cli.destination),
-            urlPrinter);
+        processFile(Cli.getCliOptionArgValue(Cli.source), urlPrinter);
         System.exit(0);
       } else {
         Cli.printHelp();
@@ -61,6 +61,8 @@ public class App {
     } catch (SecurityException sx) {
       System.out.println("You don't have permission to write to file");
       System.exit(0);
+    } catch (ParseException px) {
+      System.out.println("Commandlin arguments can'g be parsed.");
     }
   }
 
@@ -89,11 +91,11 @@ public class App {
    * @param destination File to save the result
    * @param printInColor When true, the output is printed in color in console
    */
-  private static void processFile(String source, String destination, UrlPrinter urlPrinter)
+  private static void processFile(String source, UrlPrinter urlPrinter)
       throws IOException, SecurityException {
     System.out.println("Processing...");
     extractUrl(source);
-    checkUrl(destination, urlPrinter);
+    checkUrl(urlPrinter);
   }
 
   /**
@@ -114,17 +116,7 @@ public class App {
    * @throws IOException
    * @throws SecurityException
    */
-  private static void checkUrl(String destination, UrlPrinter urlPrinter)
-      throws IOException, SecurityException {
-    List<UrlStatus> urlStatus = Checker.check(allUrls, urlPrinter);
-    if (destination != null) {
-      Writer writer = new Writer();
-      writer.setPrintWriter(destination);
-      System.out.println("Writing to file...");
-      for (UrlStatus status : urlStatus) {
-        writer.append(status.formatLineForPrinting());
-      }
-      System.out.println("Written to file :" + destination);
-    }
+  private static void checkUrl(UrlPrinter urlPrinter) throws IOException, SecurityException {
+    Checker.check(allUrls, urlPrinter);
   }
 }

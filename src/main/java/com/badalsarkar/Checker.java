@@ -1,5 +1,6 @@
 package com.badalsarkar;
 
+import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
@@ -74,7 +75,7 @@ public class Checker {
       connection.setRequestMethod("HEAD");
       connection.setConnectTimeout(5000);
       status = new UrlStatus(url, connection.getResponseCode());
-    } catch (Exception ex) {
+    } catch (IOException ex) {
       // Currently, if there is any network error e.g Timeout,
       // I am returning 1, and this represents "BAD" status.
       return new UrlStatus(url, 1);

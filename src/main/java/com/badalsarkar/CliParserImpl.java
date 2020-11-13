@@ -27,6 +27,7 @@ public class CliParserImpl implements CliParser {
             .build());
   }
 
+  /** Define CLI options that requires argument */
   @Override
   public void defineCliOptionWithArgument(CliOption option) {
     OPTIONS.addOption(
@@ -58,19 +59,14 @@ public class CliParserImpl implements CliParser {
    * @throws org.apache.commons.cli.ParseException
    */
   @Override
-  public void parse(String[] args) {
+  public void parse(String[] args) throws ParseException {
     CommandLineParser parser = new DefaultParser();
-    try {
-      cli = parser.parse(OPTIONS, args);
-    } catch (ParseException e) {
-      printHelp();
-      System.exit(1);
-    }
+    cli = parser.parse(OPTIONS, args);
   }
 
   @Override
   public boolean isCliOptionSet(CliOption option) {
-    if (cli.hasOption(option.getShortName())) {
+    if (cli != null && cli.hasOption(option.getShortName())) {
       return true;
     }
     return false;
@@ -78,7 +74,10 @@ public class CliParserImpl implements CliParser {
 
   @Override
   public String getCliOptionArgValue(CliOption option) {
-    return cli.getOptionValue(option.getShortName());
+    if (cli != null) {
+      return cli.getOptionValue(option.getShortName());
+    }
+    return "";
   }
 
   /** Prints help for CLI -h */

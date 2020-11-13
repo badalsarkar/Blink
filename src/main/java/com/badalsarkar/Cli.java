@@ -1,5 +1,7 @@
 package com.badalsarkar;
 
+import org.apache.commons.cli.ParseException;
+
 /**
  * Stores information about all CLI options.
  *
@@ -10,7 +12,6 @@ public final class Cli {
   public static final CliOption help;
   public static final CliOption version;
   public static final CliOption source;
-  public static final CliOption destination;
   public static final CliOption all;
   public static final CliOption good;
   public static final CliOption bad;
@@ -24,7 +25,6 @@ public final class Cli {
             "s",
             "source",
             "The path of the source file. File name without path, makes current directory as path.");
-    destination = new CliOption("d", "destination", "The path of the destination file.");
     all = new CliOption("a", "all", "Print all URLS.");
     good = new CliOption("g", "good", "Print only good URL.");
     bad = new CliOption("b", "bad", "Print only bad URLs.");
@@ -32,7 +32,7 @@ public final class Cli {
   }
 
   /** Initializes CLI. Extracts CLI options values. */
-  public static void init(String[] args) {
+  public static void init(String[] args) throws ParseException {
     cliParser = new CliParserImpl();
     defineCliOptions();
     cliParser.parse(args);
@@ -45,7 +45,6 @@ public final class Cli {
     cliParser.registerCliOption(version);
     cliParser.registerCliOption(in);
     cliParser.defineCliOptionWithArgument(source);
-    cliParser.defineCliOptionWithArgument(destination);
     /*
      * Group options These options are mutually exclusive. Only one can be selected
      * from the group
