@@ -67,7 +67,7 @@ public class Checker {
    * @param url
    * @return {@link UrlStatus}
    */
-  private static UrlStatus makeRequest(String url) {
+  public static UrlStatus makeRequest(String url) {
     UrlStatus status = null;
     try {
       HttpURLConnection connection = (HttpURLConnection) new URL(url).openConnection();

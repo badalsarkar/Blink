@@ -8,9 +8,12 @@ import java.util.regex.Pattern;
 public class Extractor {
 
   public static List<String> extractUrlFromText(String text, Pattern pattern) {
+    List<String> url = new ArrayList<String>();
+    if (text == null || text.length() == 0 || pattern == null) {
+      return url;
+    }
     int startPos = 0;
     int endPos = 0;
-    List<String> url = new ArrayList<String>();
     Matcher matcher = pattern.matcher(text);
     while (matcher.find()) {
       startPos = matcher.start();

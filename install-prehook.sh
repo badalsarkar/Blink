@@ -1,4 +1,5 @@
 { echo "
+git stash -q --keep-index
 mvn spotbugs:check
 RESULTS=\$?
 # Perform checks
@@ -13,8 +14,7 @@ if [ \$RESULTS -ne 0 ]; then
 fi
 # You shall commit
 echo [Formatting Code]
-mvn spotless:apply
-git add .
+mvn spotless:check
 exit 0"
 } > pre-commit.sh
 pushd .git/hooks
