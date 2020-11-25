@@ -163,13 +163,6 @@
 				</configuration>
 				<executions>
 						<execution>
-						<id>spotless-compile-check</id>
-						<phase>compile</phase>
-						<goals>
-							<goal>check</goal>
-						</goals>
-						</execution>
-						<execution>
 						<id>spotless-verify-check</id>
 						<phase>verify</phase>
 						<goals>

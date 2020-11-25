@@ -1,6 +1,7 @@
 # Contributing
 
-Contribution is welcome. Follow the following steps to setup the project-
+Contribution is welcome. Follow the following steps to setup the project in
+linux machine-
 
 1. Fork the repo.
 2. Clone it to your computer.
@@ -15,9 +16,23 @@ Contribution is welcome. Follow the following steps to setup the project-
 6. To run Blink type `./mvnw exec:java -Dexec.args="Available Blink Options"`.
 7. Before committing run `./mvnw test`. This will run all the tests. All tests
    must pass.
-8. Commit your code. The pre-commit hook, described at step 3 will run. If there
-   are any errors fix those and then commit.
-9. Push your changes to GitHub and open a PR.
+8. Before you commit run `./mvnw spotless:apply` to apply code formatting.
+9. Commit your code. The pre-commit hook, described at step 3 will run. If there
+   are any errors fix those and then commit. You can also run `./mvnw clean
+   verify` to run code formatting check and linter check before you proceed to
+   committing. In that way, you know what to fix before you are ready to commit
+   and the commit goes smoothly.
+11. Push your changes to GitHub. GitHub Action will run all checks and tests.
+12. Once all tests pass open a PR.
+
+## Running Tests
+
+To run all tests run `./mvnw test`. Running tests generates code coverage report
+which is located at `./target/site/jacoco-ut/index.html`.
+
+## Adding new tests
+
+Add your tests to `/src/test/` folder. Maintain the current coding style.
 
 ## Code Formatting
 
