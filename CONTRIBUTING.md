@@ -60,16 +60,4 @@ This will open a GUI and you will get all necessary information about bug.
 The project contains Eclipse setup files. Just import it in Eclipse and
 everything will work fine. Make sure, your Eclipse has [maven installed](https://www.toolsqa.com/java/maven/how-to-install-maven-eclipse-ide/).
 
-- To compile the project select the Run menu -> Run as -> Maven Clean
-- Select Run menu -> Run as -> Maven Build
-- If you get Edit Configuration window, put "clean compile" in the Goals field
-and click Run. This will compile the code.
-- Now to run the code, open terminal in Eclipse
-- Run command `./mvnw exec:java -Dexec.args="available options"`
-- The app will run now
-
-**Setup in Other IDE**
-
-It should be fairly easy. Just check how to import Maven project in your IDE. I
-have not used other IDEs.
-
+- Open terminal in eclipse then follow the steps described above.
