@@ -15,8 +15,8 @@
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<maven.compiler.source>1.8</maven.compiler.source>
-		<maven.compiler.target>1.8</maven.compiler.target>
+		<maven.compiler.source>1.11</maven.compiler.source>
+		<maven.compiler.target>1.11</maven.compiler.target>
 	</properties>
 
 	<repositories>
@@ -80,6 +80,9 @@
 				<plugin>
 					<artifactId>maven-compiler-plugin</artifactId>
 					<version>3.8.0</version>
+					<configuration>
+						<release>11</release>
+					</configuration>
 				</plugin>
 				<plugin>
 					<artifactId>maven-surefire-plugin</artifactId>
@@ -152,11 +155,28 @@
 				<configuration>
 					<java>
 						<googleJavaFormat>
-							<version>1.8</version>
+							<version>1.9</version>
 						</googleJavaFormat>
+						<importOrder />
 						<removeUnusedImports />
 					</java>
 				</configuration>
+				<executions>
+						<execution>
+						<id>spotless-compile-check</id>
+						<phase>compile</phase>
+						<goals>
+							<goal>check</goal>
+						</goals>
+						</execution>
+						<execution>
+						<id>spotless-verify-check</id>
+						<phase>verify</phase>
+						<goals>
+							<goal>check</goal>
+						</goals>
+					</execution>
+				</executions>
 			</plugin>
 			<plugin>
 				<groupId>com.github.spotbugs</groupId>

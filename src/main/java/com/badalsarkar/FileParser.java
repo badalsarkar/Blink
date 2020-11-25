@@ -1,8 +1,8 @@
 package com.badalsarkar;
 
+
 import java.io.File;
 import java.io.IOException;
-import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -24,7 +24,7 @@ public class FileParser {
   /** Extracts all URLs from file. */
   public void extractAllUrls() throws IOException {
     File file = new File(source);
-    Scanner in = new Scanner(file, Charset.forName("UTF-8"));
+    Scanner in = new Scanner(file, "UTF-8");
     while (in.hasNextLine()) {
       extractUrlFromLine(in.nextLine());
     }

@@ -1,5 +1,6 @@
 package com.badalsarkar;
 
+
 import com.diogonunes.jcolor.AnsiFormat;
 import com.diogonunes.jcolor.Attribute;
 import java.util.TreeMap;
