@@ -105,9 +105,7 @@ public class App {
    * @param source
    */
   private static void extractUrl(String source) throws IOException {
-    FileParser fileParser = new FileParser(source, pattern);
-    fileParser.extractAllUrls();
-    allUrls = fileParser.getAllUrls();
+    allUrls = Extractor.extractUrlFromFile(source, Pattern.compile(pattern));
   }
 
   /**
