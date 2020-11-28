@@ -25,11 +25,12 @@ public class App {
       Cli.init(args);
       if (Cli.isSet(Cli.help)) {
         Cli.printHelp();
-        System.exit(0);
+        return;
       }
 
       if (Cli.isSet(Cli.version)) {
         Cli.printVersion(appVersion);
+        return;
       }
 
       if (Cli.isSet(Cli.in)) {
@@ -46,22 +47,22 @@ public class App {
             }
           }
         }
-        System.exit(0);
+        return;
       }
       if (Cli.isSet(Cli.source)) {
         configureUrlPrinter();
         processFile(Cli.getCliOptionArgValue(Cli.source), urlPrinter);
-        System.exit(0);
+        return;
       } else {
         Cli.printHelp();
-        System.exit(0);
+        return;
       }
     } catch (IOException iox) {
       System.out.println("Encountered error while handling file");
-      System.exit(0);
+      return;
     } catch (SecurityException sx) {
       System.out.println("You don't have permission to write to file");
-      System.exit(0);
+      return;
     } catch (ParseException px) {
       System.out.println("Commandlin arguments can'g be parsed.");
     }
