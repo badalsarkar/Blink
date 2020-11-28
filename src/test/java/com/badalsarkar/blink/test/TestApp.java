@@ -1,6 +1,7 @@
 package com.badalsarkar.blink.test;
 
 
+import com.badalsarkar.App;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
@@ -8,7 +9,6 @@ import java.io.PrintStream;
 import org.apache.commons.io.FileUtils;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-import com.badalsarkar.App;
 
 public class TestApp {
 
@@ -59,6 +59,6 @@ public class TestApp {
 
     System.setOut(originalStdOut);
     consoleContent.close();
-    Assertions.assertEquals(actualOutput.toString(), "\nBlink V0.1");
+    Assertions.assertEquals(actualOutput.toString(), "\nBlink V0.1\n");
   }
 }
