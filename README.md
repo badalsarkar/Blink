@@ -1,5 +1,7 @@
 # Blink
 
+![Java CI with Maven](https://github.com/badalsarkar/Blink/workflows/Java%20CI%20with%20Maven/badge.svg "Java CI with Maven")
+
 Blink is a command line application to detect invalid URLs.
 
 ## Available Features
