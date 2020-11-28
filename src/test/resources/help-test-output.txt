@@ -1,0 +1,15 @@
+usage: urlchecker [-a | -b | -g]   [-h] [-i] [-s <arg>] [-v]
+
+Find dead URL link.
+
+ -a,--all            Print all URLS.
+ -b,--bad            Print only bad URLs.
+ -g,--good           Print only good URL.
+ -h,--help           Show app usage help.
+ -i,--in             Accept text input from standard input
+ -s,--source <arg>   The path of the source file. File name without path,
+                     makes current directory as path.
+ -v,--version        Show app version information
+
+Please report issues at https://github.com/badalsarkar/URLChecker/issues
+
