@@ -92,7 +92,7 @@ public class CliParserImpl implements CliParser {
 
   /** Prints App version. */
   public void printVersion(String version) {
-    String header = "\nurlchecker";
-    System.out.println(header + "\n" + version);
+    String header = "\nBlink";
+    System.out.println(header + " " + version);
   }
 }
