@@ -45,6 +45,15 @@ public class TestChecker {
                     .whereUriPath(isEqualTo("/return/404"))
                     .whereHeader("Host", contains("google.com")))
             .then(httpResponse().withStatus(404).withHeader("Content-Type", "application/text")));
+
+    mockServer.add(
+        simlet("test-google-redirect")
+            .when(
+                httpRequest()
+                    .whereMethod("HEAD")
+                    .whereUriPath(isEqualTo("/return/301"))
+                    .whereHeader("Host", contains("google.com")))
+            .then(httpResponse().withStatus(301).withHeader("Content-Type", "application/text")));
   }
 
   @AfterAll
@@ -76,6 +85,20 @@ public class TestChecker {
 
       UrlStatus url = Checker.makeRequest("http://www.google.com/return/404");
       Assertions.assertEquals(404, url.getStatusCode());
+    } finally {
+      System.clearProperty("http.proxyHost");
+      System.clearProperty("http.proxyPort");
+    }
+  }
+
+  @Test
+  public void testRedirectUrl() throws Exception {
+    try {
+      System.setProperty("http.proxyHost", "localhost");
+      System.setProperty("http.proxyPort", "6090");
+
+      UrlStatus url = Checker.makeRequest("http://www.google.com/return/301");
+      Assertions.assertEquals(301, url.getStatusCode());
     } finally {
       System.clearProperty("http.proxyHost");
       System.clearProperty("http.proxyPort");

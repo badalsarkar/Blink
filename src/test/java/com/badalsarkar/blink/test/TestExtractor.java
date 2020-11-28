@@ -74,4 +74,14 @@ public class TestExtractor {
     List<String> expectedResult = new ArrayList<String>(2);
     Assertions.assertEquals(expectedResult, actualResult);
   }
+
+  @Test
+  @DisplayName("Text and Pattern are null, should return empty List")
+  void extractorWithNullTextNullPattern() {
+
+    List<String> actualResult = Extractor.extractUrlFromText(null, null);
+
+    List<String> expectedResult = new ArrayList<String>(2);
+    Assertions.assertEquals(expectedResult, actualResult);
+  }
 }
