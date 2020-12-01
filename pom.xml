@@ -3,235 +3,350 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-<modelVersion>4.0.0</modelVersion>
+	<modelVersion>4.0.0</modelVersion>
 
-<groupId>com.badalsarkar</groupId>
-<artifactId>blink</artifactId>
-<version>1.0-SNAPSHOT</version>
+	<!-- Project metadata -->
+	<groupId>ca.badalsarkar</groupId>
+	<artifactId>blink</artifactId>
+	<version>1.0-SNAPSHOT</version>
+	<packaging>jar</packaging>
+	<name>Blink</name>
+	<description>A commandline application to validate URLs with HTTP/HTTPS scheme</description>
+	<url>https://github.com/badalsarkar/Blink</url>
 
-<name>blink</name>
-	<!-- FIXME change it to the project's website -->
-<url>https://github.com/badalsarkar/Blink</url>
+	<!-- Opensource license -->
+	<licenses>
+		<license>
+			<name>MIT License</name>
+			<url>http://www.opensource.org/licenses/mit-license.php</url>
+		</license>
+	</licenses>
 
-<properties>
-	<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-	<maven.compiler.source>1.11</maven.compiler.source>
-	<maven.compiler.target>1.11</maven.compiler.target>
-</properties>
+	<!-- Developer information -->
+	<developers>
+		<developer>
+			<name>Badal Sarkar</name>
+			<email>badal-sarkar@hotmail.com</email>
+		</developer>
+	</developers>
 
-<repositories>
-	<repository>
-		<id>apisimulator-github-repo</id>
-		<url>https://github.com/apimastery/APISimulator/raw/maven-repository</url>
-	</repository>
-</repositories>
+	<!-- Version control infomation -->
+	<scm>
+		<connection>scm:git:git@github.com:badalsarkar/Blink.git</connection>
+		<developerConnection>scm:git:git@github.com:badalsarkar/Blink.git</developerConnection>
+		<url>https://github.com/badalsarkar/Blink</url>
+	</scm>
+
+	<!-- Remote repository to deploy the project -->
+	<distributionManagement>
+		<snapshotRepository>
+			<id>ossrh</id>
+			<url>https://oss.sonatype.org/content/repositories/snapshots</url>
+		</snapshotRepository>
+		<repository>
+			<id>ossrh</id>
+			<url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
+		</repository>
+	</distributionManagement>
+
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<maven.compiler.source>1.11</maven.compiler.source>
+		<maven.compiler.target>1.11</maven.compiler.target>
+	</properties>
+
+	<!-- Third party reporisitory dependency -->
+	<repositories>
+		<repository>
+			<id>apisimulator-github-repo</id>
+			<url>https://github.com/apimastery/APISimulator/raw/maven-repository</url>
+		</repository>
+	</repositories>
 
 
-<dependencies>
-	<!-- https://mvnrepository.com/artifact/com.diogonunes/JColor -->
-	<dependency>
-		<groupId>com.diogonunes</groupId>
-		<artifactId>JColor</artifactId>
-		<version>5.0.0</version>
-		<scope>compile</scope>
-	</dependency>
+	<dependencies>
+		<!-- https://mvnrepository.com/artifact/com.diogonunes/JColor -->
+		<dependency>
+			<groupId>com.diogonunes</groupId>
+			<artifactId>JColor</artifactId>
+			<version>5.0.0</version>
+			<scope>compile</scope>
+		</dependency>
 
-	<!-- https://mvnrepository.com/artifact/commons-cli/commons-cli -->
-	<dependency>
-		<groupId>commons-cli</groupId>
-		<artifactId>commons-cli</artifactId>
-		<version>1.4</version>
-	</dependency>
+		<!-- https://mvnrepository.com/artifact/commons-cli/commons-cli -->
+		<dependency>
+			<groupId>commons-cli</groupId>
+			<artifactId>commons-cli</artifactId>
+			<version>1.4</version>
+		</dependency>
 
-	<dependency>
-		<groupId>org.junit.jupiter</groupId>
-		<artifactId>junit-jupiter-api</artifactId>
-		<version>5.4.2</version>
-		<scope>test</scope>
-	</dependency>
-	<dependency>
-		<groupId>org.junit.jupiter</groupId>
-		<artifactId>junit-jupiter-engine</artifactId>
-		<version>5.4.2</version>
-		<scope>test</scope>
-	</dependency>
+		<dependency>
+			<groupId>org.junit.jupiter</groupId>
+			<artifactId>junit-jupiter-api</artifactId>
+			<version>5.4.2</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.junit.jupiter</groupId>
+			<artifactId>junit-jupiter-engine</artifactId>
+			<version>5.4.2</version>
+			<scope>test</scope>
+		</dependency>
 
-	<dependency>
-		<groupId>com.apisimulator</groupId>
-		<artifactId>apisimulator-http-embedded</artifactId>
-		<version>1.7</version>
-	</dependency>
+		<dependency>
+			<groupId>com.apisimulator</groupId>
+			<artifactId>apisimulator-http-embedded</artifactId>
+			<version>1.7</version>
+		</dependency>
 
-	<!-- https://mvnrepository.com/artifact/commons-io/commons-io -->
-	<dependency>
-		<groupId>commons-io</groupId>
-		<artifactId>commons-io</artifactId>
-		<version>2.5</version>
-	</dependency>
-</dependencies>
+		<!-- https://mvnrepository.com/artifact/commons-io/commons-io -->
+		<dependency>
+			<groupId>commons-io</groupId>
+			<artifactId>commons-io</artifactId>
+			<version>2.5</version>
+		</dependency>
+	</dependencies>
 
-<build>
-	<pluginManagement><!-- lock down plugins versions to avoid using Maven 
-	defaults (may be moved to parent pom) -->
-	<plugins>
-		<!-- clean lifecycle, see https://maven.apache.org/ref/current/maven-core/lifecycles.html#clean_Lifecycle -->
-		<plugin>
-			<artifactId>maven-clean-plugin</artifactId>
-			<version>3.1.0</version>
-		</plugin>
-		<!-- default lifecycle, jar packaging: see https://maven.apache.org/ref/current/maven-core/default-bindings.html#Plugin_bindings_for_jar_packaging -->
-		<plugin>
-			<artifactId>maven-resources-plugin</artifactId>
-			<version>3.0.2</version>
-		</plugin>
-		<plugin>
-			<artifactId>maven-compiler-plugin</artifactId>
-			<version>3.8.0</version>
-			<configuration>
-				<release>11</release>
-			</configuration>
-		</plugin>
-		<plugin>
-			<artifactId>maven-surefire-plugin</artifactId>
-			<version>2.22.1</version>
-			<configuration>
-				<argLine>${surefireArgLine}</argLine>
-			</configuration>
-		</plugin>
-		<plugin>
-			<artifactId>maven-jar-plugin</artifactId>
-			<version>3.0.2</version>
-		</plugin>
-		<plugin>
-			<artifactId>maven-install-plugin</artifactId>
-			<version>2.5.2</version>
-		</plugin>
-		<plugin>
-			<artifactId>maven-deploy-plugin</artifactId>
-			<version>2.8.2</version>
-		</plugin>
-		<!-- site lifecycle, see https://maven.apache.org/ref/current/maven-core/lifecycles.html#site_Lifecycle -->
-		<plugin>
-			<artifactId>maven-site-plugin</artifactId>
-			<version>3.7.1</version>
-		</plugin>
-		<plugin>
-			<artifactId>maven-project-info-reports-plugin</artifactId>
-			<version>3.0.0</version>
-		</plugin>
-		<plugin>
-			<artifactId>maven-assembly-plugin</artifactId>
-			<executions>
-				<execution>
-					<phase>package</phase>
-					<goals>
-						<goal>single</goal>
-					</goals>
-				</execution>
-			</executions>
-			<configuration>
-				<finalName>Blink</finalName>
-				<archive>
-					<manifest>
-						<mainClass>
-							com.badalsarkar.App
-						</mainClass>
-					</manifest>
-				</archive>
-				<descriptorRefs>
-					<descriptorRef>jar-with-dependencies</descriptorRef>
-				</descriptorRefs>
-				<appendAssemblyId>false</appendAssemblyId>
-			</configuration>
-		</plugin>
-		<plugin>
-			<groupId>org.codehaus.mojo</groupId>
-			<artifactId>exec-maven-plugin</artifactId>
-			<version>1.6.0</version>
-			<configuration>
-				<mainClass>com.badalsarkar.App</mainClass>
-			</configuration>
-		</plugin>
-	</plugins>
-</pluginManagement>
-<plugins>
-	<plugin>
-		<groupId>com.diffplug.spotless</groupId>
-		<artifactId>spotless-maven-plugin</artifactId>
-		<version>2.5.0</version>
-		<configuration>
-			<java>
-				<googleJavaFormat>
-					<version>1.9</version>
-				</googleJavaFormat>
-				<importOrder />
-				<removeUnusedImports />
-			</java>
-		</configuration>
-		<executions>
-			<execution>
-				<id>spotless-verify-check</id>
-				<phase>verify</phase>
-				<goals>
-					<goal>check</goal>
-				</goals>
-			</execution>
-		</executions>
-	</plugin>
-	<plugin>
-		<groupId>com.github.spotbugs</groupId>
-		<artifactId>spotbugs-maven-plugin</artifactId>
-		<version>4.1.4</version>
-		<configuration>
-			<effort>Max</effort>
-			<threshold>Low</threshold>
-			<xmlOutput>true</xmlOutput>
-		</configuration>
-		<executions>
-			<execution>
-				<goals>
-					<goal>check</goal>
-				</goals>
-			</execution>
-		</executions>
-	</plugin>
-	<plugin>
-		<groupId>org.jacoco</groupId>
-		<artifactId>jacoco-maven-plugin</artifactId>
-		<version>0.8.4 </version>
-		<executions>
-			<!-- Prepares the property pointing to the JaCoCo runtime agent which 
-			is passed as VM argument when Maven the Surefire plugin is executed. -->
-			<execution>
-				<id>pre-unit-test</id>
-				<goals>
-					<goal>prepare-agent</goal>
-				</goals>
+	<build>
+		<pluginManagement><!-- lock down plugins versions to avoid using Maven 
+				defaults (may be moved to parent pom) -->
+			<plugins>
+				<!-- clean lifecycle, see https://maven.apache.org/ref/current/maven-core/lifecycles.html#clean_Lifecycle -->
+				<plugin>
+					<artifactId>maven-clean-plugin</artifactId>
+					<version>3.1.0</version>
+				</plugin>
+				<!-- default lifecycle, jar packaging: see https://maven.apache.org/ref/current/maven-core/default-bindings.html#Plugin_bindings_for_jar_packaging -->
+				<plugin>
+					<artifactId>maven-resources-plugin</artifactId>
+					<version>3.0.2</version>
+				</plugin>
+				<plugin>
+					<artifactId>maven-compiler-plugin</artifactId>
+					<version>3.8.0</version>
+					<configuration>
+						<release>11</release>
+					</configuration>
+				</plugin>
+
+				<!-- Maven release plugin to release the project -->
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-release-plugin</artifactId>
+					<version>2.5.3</version>
+					<configuration>
+						<tagNameFormat>v@{project.version}</tagNameFormat>
+						<autoVersionSubmodules>true</autoVersionSubmodules>
+						<useReleaseProfile>false</useReleaseProfile>
+						<releaseProfiles>release</releaseProfiles>
+						<goals>deploy</goals>
+					</configuration>
+				</plugin>
+
+				<!-- Maven surefire plugin -->
+				<plugin>
+					<artifactId>maven-surefire-plugin</artifactId>
+					<version>2.22.1</version>
+					<configuration>
+						<argLine>${surefireArgLine}</argLine>
+					</configuration>
+				</plugin>
+				<plugin>
+					<artifactId>maven-jar-plugin</artifactId>
+					<version>3.0.2</version>
+				</plugin>
+				<plugin>
+					<artifactId>maven-install-plugin</artifactId>
+					<version>2.5.2</version>
+				</plugin>
+				<plugin>
+					<artifactId>maven-deploy-plugin</artifactId>
+					<version>2.8.2</version>
+				</plugin>
+
+				<!-- site lifecycle, see https://maven.apache.org/ref/current/maven-core/lifecycles.html#site_Lifecycle -->
+				<plugin>
+					<artifactId>maven-site-plugin</artifactId>
+					<version>3.7.1</version>
+				</plugin>
+				<plugin>
+					<artifactId>maven-project-info-reports-plugin</artifactId>
+					<version>3.0.0</version>
+				</plugin>
+
+				<!-- Assembly plugin -->
+				<plugin>
+					<artifactId>maven-assembly-plugin</artifactId>
+					<executions>
+						<execution>
+							<phase>package</phase>
+							<goals>
+								<goal>single</goal>
+							</goals>
+						</execution>
+					</executions>
+					<configuration>
+						<finalName>Blink</finalName>
+						<archive>
+							<manifest>
+								<!-- This is for version information -->
+								<addDefaultImplementationEntries>true</addDefaultImplementationEntries>
+								<mainClass>
+									ca.badalsarkar.App
+								</mainClass>
+							</manifest>
+						</archive>
+						<descriptorRefs>
+							<descriptorRef>jar-with-dependencies</descriptorRef>
+						</descriptorRefs>
+						<appendAssemblyId>false</appendAssemblyId>
+					</configuration>
+				</plugin>
+
+
+				<plugin>
+					<groupId>org.codehaus.mojo</groupId>
+					<artifactId>exec-maven-plugin</artifactId>
+					<version>1.6.0</version>
+					<configuration>
+						<mainClass>ca.badalsarkar.App</mainClass>
+					</configuration>
+				</plugin>
+			</plugins>
+		</pluginManagement>
+
+
+		<plugins>
+			<plugin>
+				<groupId>com.diffplug.spotless</groupId>
+				<artifactId>spotless-maven-plugin</artifactId>
+				<version>2.5.0</version>
 				<configuration>
-					<!-- Sets the path to the file which contains the execution data. -->
-					<destFile>${project.build.directory}/coverage-reports/jacoco-ut.exec</destFile>
-						<!-- Sets the name of the property containing the settings for JaCoCo 
-						runtime agent. -->
-					<propertyName>surefireArgLine</propertyName>
+					<java>
+						<googleJavaFormat>
+							<version>1.9</version>
+						</googleJavaFormat>
+						<importOrder />
+						<removeUnusedImports />
+					</java>
 				</configuration>
-			</execution>
-			<!-- Ensures that the code coverage report for unit tests is created 
-			after unit tests have been run. -->
-			<execution>
-				<id>post-unit-test</id>
-				<phase>test</phase>
-				<goals>
-					<goal>report</goal>
-				</goals>
+				<executions>
+					<execution>
+						<id>spotless-verify-check</id>
+						<phase>verify</phase>
+						<goals>
+							<goal>check</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<groupId>com.github.spotbugs</groupId>
+				<artifactId>spotbugs-maven-plugin</artifactId>
+				<version>4.1.4</version>
 				<configuration>
-					<!-- Sets the path to the file which contains the execution data. -->
-					<dataFile>${project.build.directory}/coverage-reports/jacoco-ut.exec</dataFile>
-						<!-- Sets the output directory for the code coverage report. -->
-					<outputDirectory>${project.reporting.outputDirectory}/jacoco-ut</outputDirectory>
+					<effort>Max</effort>
+					<threshold>Low</threshold>
+					<xmlOutput>true</xmlOutput>
 				</configuration>
-			</execution>
-		</executions>
-	</plugin>
-</plugins>
+				<executions>
+					<execution>
+						<goals>
+							<goal>check</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<groupId>org.jacoco</groupId>
+				<artifactId>jacoco-maven-plugin</artifactId>
+				<version>0.8.4 </version>
+				<executions>
+					<!-- Prepares the property pointing to the JaCoCo runtime agent which 
+						is passed as VM argument when Maven the Surefire plugin is executed. -->
+					<execution>
+						<id>pre-unit-test</id>
+						<goals>
+							<goal>prepare-agent</goal>
+						</goals>
+						<configuration>
+							<!-- Sets the path to the file which contains the execution data. -->
+							<destFile>${project.build.directory}/coverage-reports/jacoco-ut.exec</destFile>
+							<!-- Sets the name of the property containing the settings for JaCoCo 
+								runtime agent. -->
+							<propertyName>surefireArgLine</propertyName>
+						</configuration>
+					</execution>
+					<!-- Ensures that the code coverage report for unit tests is created 
+						after unit tests have been run. -->
+					<execution>
+						<id>post-unit-test</id>
+						<phase>test</phase>
+						<goals>
+							<goal>report</goal>
+						</goals>
+						<configuration>
+							<!-- Sets the path to the file which contains the execution data. -->
+							<dataFile>${project.build.directory}/coverage-reports/jacoco-ut.exec</dataFile>
+							<!-- Sets the output directory for the code coverage report. -->
+							<outputDirectory>${project.reporting.outputDirectory}/jacoco-ut</outputDirectory>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+
+
+			<!-- Maven source plugin to add source file to the release jar -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-source-plugin</artifactId>
+				<version>2.2.1</version>
+				<executions>
+					<execution>
+						<id>attach-sources</id>
+						<goals>
+							<goal>jar-no-fork</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+
+
+			<!-- Maven javadoc plugin to add javadoc to the published jar at Maven 
+				central -->
+			<!-- https://central.sonatype.org/pages/apache-maven.html -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-javadoc-plugin</artifactId>
+				<version>2.9.1</version>
+				<executions>
+					<execution>
+						<id>attach-javadocs</id>
+						<goals>
+							<goal>jar</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+
+
+			<!-- The Maven GPG plugin is used to sign the components with the following 
+				configuration. -->
+			<!-- https://central.sonatype.org/pages/apache-maven.html -->
+<!-- 			<plugin> -->
+<!-- 				<groupId>org.apache.maven.plugins</groupId> -->
+<!-- 				<artifactId>maven-gpg-plugin</artifactId> -->
+<!-- 				<version>1.5</version> -->
+<!-- 				<executions> -->
+<!-- 					<execution> -->
+<!-- 						<id>sign-artifacts</id> -->
+<!-- 						<phase>verify</phase> -->
+<!-- 						<goals> -->
+<!-- 							<goal>sign</goal> -->
+<!-- 						</goals> -->
+<!-- 					</execution> -->
+<!-- 				</executions> -->
+<!-- 			</plugin> -->
+		</plugins>
 	</build>
 </project>

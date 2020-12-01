@@ -1,4 +1,4 @@
-package com.badalsarkar;
+package ca.badalsarkar;
 
 public final class CliOption {
   private final String shortName;

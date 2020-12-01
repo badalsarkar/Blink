@@ -7,9 +7,9 @@ import static com.apisimulator.embedded.http.HttpApiSimulation.httpRequest;
 import static com.apisimulator.embedded.http.HttpApiSimulation.httpResponse;
 import static com.apisimulator.embedded.http.HttpApiSimulation.simlet;
 
+import ca.badalsarkar.Checker;
+import ca.badalsarkar.UrlStatus;
 import com.apisimulator.embedded.http.HttpApiSimulation;
-import com.badalsarkar.Checker;
-import com.badalsarkar.UrlStatus;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;

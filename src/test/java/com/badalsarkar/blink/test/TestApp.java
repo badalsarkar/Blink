@@ -1,7 +1,7 @@
 package com.badalsarkar.blink.test;
 
 
-import com.badalsarkar.App;
+import ca.badalsarkar.App;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;

@@ -1,4 +1,4 @@
-package com.badalsarkar;
+package ca.badalsarkar;
 
 
 import org.apache.commons.cli.ParseException;

@@ -1,4 +1,4 @@
-package com.badalsarkar;
+package ca.badalsarkar;
 
 /** Filter is used to print ALL or only GOOD or BAD URL */
 enum PrintFilter {

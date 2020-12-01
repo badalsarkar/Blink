@@ -1,7 +1,7 @@
 package com.badalsarkar.blink.test;
 
 
-import com.badalsarkar.Extractor;
+import ca.badalsarkar.Extractor;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Pattern;

@@ -1,4 +1,4 @@
-package com.badalsarkar;
+package ca.badalsarkar;
 
 /**
  * This interface must be implemented by Cli Parser.
