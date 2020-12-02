@@ -9,15 +9,21 @@ import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+/**
+ * Extractor class.
+ *
+ * @author badal
+ * @version $Id: $Id
+ */
 public class Extractor {
 
   /**
    * Extract all urls from a file
    *
-   * @param source
-   * @param pattern
-   * @return
-   * @throws IOException
+   * @param source a {@link java.lang.String} object.
+   * @param pattern a {@link java.util.regex.Pattern} object.
+   * @return a {@link java.util.List} object.
+   * @throws java.io.IOException if any.
    */
   public static List<String> extractUrlFromFile(String source, Pattern pattern) throws IOException {
     List<String> urls = new ArrayList<String>();
@@ -36,9 +42,9 @@ public class Extractor {
   /**
    * Extract all urls from some text
    *
-   * @param text
-   * @param pattern
-   * @return
+   * @param text a {@link java.lang.String} object.
+   * @param pattern a {@link java.util.regex.Pattern} object.
+   * @return a {@link java.util.List} object.
    */
   public static List<String> extractUrlFromText(String text, Pattern pattern) {
     List<String> url = new ArrayList<String>();

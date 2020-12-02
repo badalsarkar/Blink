@@ -11,14 +11,22 @@ import org.apache.commons.cli.Options;
 import org.apache.commons.cli.ParseException;
 
 /**
- * This class provides support to parse CLI arguments. I have used Apache Commons CLI {@link
- * http://commons.apache.org/proper/commons-cli/introduction.html}
+ * This class provides support to parse CLI arguments. I have used Apache Commons CLI
+ *
+ * @see <a href=
+ *     "http://commons.apache.org/proper/commons-cli/introduction.html">http://commons.apache.org/proper/commons-cli/introduction.html</a>
+ * @author badal
+ * @version $Id: $Id
  */
 public class CliParserImpl implements CliParser {
   private static final Options OPTIONS = new Options();
   private CommandLine cli;
 
-  /** Define CLI options */
+  /**
+   * {@inheritDoc}
+   *
+   * <p>Define CLI options
+   */
   @Override
   public void registerCliOption(CliOption option) {
     OPTIONS.addOption(
@@ -28,7 +36,11 @@ public class CliParserImpl implements CliParser {
             .build());
   }
 
-  /** Define CLI options that requires argument */
+  /**
+   * {@inheritDoc}
+   *
+   * <p>Define CLI options that requires argument
+   */
   @Override
   public void defineCliOptionWithArgument(CliOption option) {
     OPTIONS.addOption(
@@ -39,6 +51,7 @@ public class CliParserImpl implements CliParser {
             .build());
   }
 
+  /** {@inheritDoc} */
   @Override
   public void defineCliGroupOption(CliOption... options) {
     OptionGroup groupOptions = new OptionGroup();
@@ -53,11 +66,9 @@ public class CliParserImpl implements CliParser {
   }
 
   /**
-   * Process CLI arguments and returns it.
+   * {@inheritDoc}
    *
-   * @param args
-   * @return CLI arguments
-   * @throws org.apache.commons.cli.ParseException
+   * <p>Process CLI arguments and returns it.
    */
   @Override
   public void parse(String[] args) throws ParseException {
@@ -65,6 +76,7 @@ public class CliParserImpl implements CliParser {
     cli = parser.parse(OPTIONS, args);
   }
 
+  /** {@inheritDoc} */
   @Override
   public boolean isCliOptionSet(CliOption option) {
     if (cli != null && cli.hasOption(option.getShortName())) {
@@ -73,6 +85,7 @@ public class CliParserImpl implements CliParser {
     return false;
   }
 
+  /** {@inheritDoc} */
   @Override
   public String getCliOptionArgValue(CliOption option) {
     if (cli != null) {
@@ -90,7 +103,11 @@ public class CliParserImpl implements CliParser {
     formatter.printHelp("urlchecker", header, OPTIONS, footer, true);
   }
 
-  /** Prints App version. */
+  /**
+   * Prints App version.
+   *
+   * @param version a {@link java.lang.String} object.
+   */
   public void printVersion(String version) {
     String header = "\nBlink";
     System.out.println(header + " " + version);

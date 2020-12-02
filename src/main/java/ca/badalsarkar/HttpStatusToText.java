@@ -6,6 +6,9 @@ import java.util.TreeMap;
 /**
  * This is a simple calss to store status text to different HTTP response code range. Example:
  * 100-199, Good 200-299, Good
+ *
+ * @author badal
+ * @version $Id: $Id
  */
 public class HttpStatusToText {
   private static TreeMap<Integer, String> httpTextForCode = new TreeMap<Integer, String>();
@@ -23,7 +26,7 @@ public class HttpStatusToText {
   /**
    * Returns the stauts corresponding to a HTTP status code
    *
-   * @param code
+   * @param code an int.
    * @return String
    */
   public static String get(int code) {

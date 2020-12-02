@@ -8,6 +8,9 @@ import java.util.TreeMap;
 /**
  * This is a simple class which attaches colors to different HTTP status code. Example: 100-199,
  * yellow color 200-299, green color etc.
+ *
+ * @author badal
+ * @version $Id: $Id
  */
 public class PrintColor {
   private static final AnsiFormat greenColor = new AnsiFormat(Attribute.GREEN_TEXT());
@@ -28,6 +31,12 @@ public class PrintColor {
 
   /*
    * Returns the AnsiFormat corresponding to HTTP status code.
+   */
+  /**
+   * get.
+   *
+   * @param httpStatus a int.
+   * @return a {@link com.diogonunes.jcolor.AnsiFormat} object.
    */
   public static AnsiFormat get(int httpStatus) {
     return httpTextForCode.floorEntry(httpStatus).getValue();

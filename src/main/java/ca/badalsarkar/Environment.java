@@ -7,12 +7,16 @@ import java.util.Map;
  * This is an utility class which encapsulates process of environmental variables. All the
  * environmental variables are managed by this class. Any other class/methods needing environmental
  * variable consults with this class.
+ *
+ * @author badal
+ * @version $Id: $Id
  */
 public final class Environment {
   private static Map<String, String> env;
   // All supported variables
   private static boolean cliColor; // Used to print URL status in color
 
+  /** extractAllVariables. */
   public static void extractAllVariables() {
     env = System.getenv();
     setCliColor();
@@ -28,6 +32,11 @@ public final class Environment {
     }
   }
 
+  /**
+   * Getter for the field <code>cliColor</code>.
+   *
+   * @return a boolean.
+   */
   public static boolean getCliColor() {
     return cliColor;
   }

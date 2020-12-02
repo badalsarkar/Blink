@@ -9,7 +9,12 @@ import java.util.List;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 
-/** This class makes HTTP request with an URL and records its response. */
+/**
+ * This class makes HTTP request with an URL and records its response.
+ *
+ * @author badal
+ * @version $Id: $Id
+ */
 public class Checker {
   // HTTP requests are made asynchronously.
   // Currently, I am making 100 async request
@@ -20,11 +25,22 @@ public class Checker {
   // private List<String> urls;
   // private int checked=0;
 
+  /**
+   * Constructor for Checker.
+   *
+   * @param urls a {@link java.util.List} object.
+   */
   public Checker(List<String> urls) {
     // this.urls= urls;
   }
 
-  /** Check all the Urls and print to screen. */
+  /**
+   * Check all the Urls and print to screen.
+   *
+   * @param urls a {@link java.util.List} object.
+   * @param urlPrinter a {@link ca.badalsarkar.UrlPrinter} object.
+   * @return a {@link java.util.List} object.
+   */
   public static List<UrlStatus> check(List<String> urls, UrlPrinter urlPrinter) {
     int size = urls.size();
     int remaining = size;
@@ -65,8 +81,8 @@ public class Checker {
    * Makes Http request to a URL and returns the status code. @TODO add feature to handle
    * redirect @TODO add feature to handle different network error
    *
-   * @param url
-   * @return {@link UrlStatus}
+   * @param url a {@link java.lang.String} object.
+   * @return {@link ca.badalsarkar.UrlStatus}
    */
   public static UrlStatus makeRequest(String url) {
     UrlStatus status = null;

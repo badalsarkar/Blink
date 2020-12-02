@@ -9,7 +9,12 @@ import java.util.List;
 import java.util.regex.Pattern;
 import org.apache.commons.cli.ParseException;
 
-/** Main class. */
+/**
+ * Main class.
+ *
+ * @author badal
+ * @version $Id: $Id
+ */
 public class App {
   private static List<String> allUrls;
   private static UrlPrinter urlPrinter;
@@ -18,6 +23,11 @@ public class App {
   private static final String pattern =
       "(http|https):\\/\\/[-a-zA-Z0-9+&@#/%?=~_|!:,.;]*[-a-zA-Z0-9+&@#/%=~_|]";
 
+  /**
+   * main.
+   *
+   * @param args an array of {@link java.lang.String} objects.
+   */
   public static void main(String[] args) {
     Environment.extractAllVariables();
     /** if Cli.getVersion */
