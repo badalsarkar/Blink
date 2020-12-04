@@ -8,7 +8,7 @@
 	<!-- Project metadata -->
 	<groupId>ca.badalsarkar</groupId>
 	<artifactId>blink</artifactId>
-	<version>1.0-SNAPSHOT</version>
+	<version>1.0.0-SNAPSHOT</version>
 	<packaging>jar</packaging>
 	<name>Blink</name>
 	<description>A commandline application to validate URLs with HTTP/HTTPS scheme</description>
@@ -154,6 +154,15 @@
 				<plugin>
 					<artifactId>maven-jar-plugin</artifactId>
 					<version>3.0.2</version>
+					<configuration>
+						<archive>
+							<manifest>
+								<addClasspath>true</addClasspath>
+								<classpathPrefix>${project.build.finalName}.lib/</classpathPrefix>
+								<mainClass>${fully.qualified.main.class}</mainClass>
+							</manifest>
+						</archive>
+					</configuration>
 				</plugin>
 				<plugin>
 					<artifactId>maven-install-plugin</artifactId>
@@ -179,6 +188,7 @@
 					<artifactId>maven-assembly-plugin</artifactId>
 					<executions>
 						<execution>
+							<id>maven-assembly</id>
 							<phase>package</phase>
 							<goals>
 								<goal>single</goal>
@@ -189,7 +199,7 @@
 						<finalName>Blink</finalName>
 						<archive>
 							<manifest>
-								<!-- This is for version information -->
+								This is for version information
 								<addDefaultImplementationEntries>true</addDefaultImplementationEntries>
 								<mainClass>
 									ca.badalsarkar.App
@@ -333,20 +343,20 @@
 			<!-- The Maven GPG plugin is used to sign the components with the following 
 				configuration. -->
 			<!-- https://central.sonatype.org/pages/apache-maven.html -->
-<!-- 			<plugin> -->
-<!-- 				<groupId>org.apache.maven.plugins</groupId> -->
-<!-- 				<artifactId>maven-gpg-plugin</artifactId> -->
-<!-- 				<version>1.5</version> -->
-<!-- 				<executions> -->
-<!-- 					<execution> -->
-<!-- 						<id>sign-artifacts</id> -->
-<!-- 						<phase>verify</phase> -->
-<!-- 						<goals> -->
-<!-- 							<goal>sign</goal> -->
-<!-- 						</goals> -->
-<!-- 					</execution> -->
-<!-- 				</executions> -->
-<!-- 			</plugin> -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-gpg-plugin</artifactId>
+				<version>1.5</version>
+				<executions>
+					<execution>
+						<id>sign-artifacts</id>
+						<phase>verify</phase>
+						<goals>
+							<goal>sign</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
 		</plugins>
 	</build>
 </project>
