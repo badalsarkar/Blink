@@ -13,8 +13,20 @@ print to console.
 
 ## How to install
 
-Run `./mvnw clean compile assembly:single`. This will create `Blink.jar` file
+### Download the jar file directly
+
+Download the Blink.jar file from [https://search.maven.org/artifact/ca.badalsarkar/blink](https://search.maven.org/artifact/ca.badalsarkar/blink).
+
+### Download the source code
+
+- Download the zip file from [https://github.com/badalsarkar/Blink/releases](https://github.com/badalsarkar/Blink/releases).
+- Unzip the files
+- Run `./mvnw clean compile assembly:single`. This will create `Blink.jar` file
 inside `target` directory.
+
+### System requirement
+
+- Java version 11 or higher
 
 ## Available Options
 
